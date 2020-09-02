@@ -1,0 +1,48 @@
+{
+  "name": "pandaya",
+  "version": "0.0.1-alpha",
+  "description": "Pandaya Application",
+  "main": "main.js",
+  "scripts": {
+    "postinstall": "electron-rebuild",
+    "macbuild": "electron-packager . pandaya-apps --overwrite --platform=darwin --arch=x64 --prune=true --out=.build --icon=Icon.icns",
+    "win64build": "electron-packager . pandaya-apps --overwrite --asar --platform=win32 --arch=x64 --icon=Icon.ico --version-string.CompanyName=4DS --version-string.FileDescription=4DS --version-string.ProductName=\"Pandaya Apps\" --prune=true --out=.build",
+    "win86build": "electron-packager . pandaya-apps --overwrite --asar --platform=win32 --arch=ia32 --icon=Icon.ico --version-string.CompanyName=4DS --version-string.FileDescription=4DS --version-string.ProductName=\"Pandaya Apps\" --prune=true --out=.build",
+    "macpackage": "asar pack .build/pandaya-apps-darwin-x64/pandaya-apps.app/Contents/Resources/app .build/pandaya-apps-darwin-x64/pandaya-apps.app/Contents/Resources/app.asar && rm -rf .build/pandaya-apps-darwin-x64/pandaya-apps.app/Contents/Resources/app",
+    "macdist": "electron-installer-dmg .build/pandaya-apps-darwin-x64/pandaya-apps.app pandaya-apps --out=.build --overwrite --icon=Icon.icns",
+    "win64dist": "node createinstaller64",
+    "win86dist": "node createinstaller86",
+    "test": "jest",
+    "start": "electron ."
+  },
+  "keywords": [
+    "electron",
+    "serialport",
+    "ota"
+  ],
+  "author": "prajadimas",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "asar": "^3.0.3",
+    "electron": "^9.0.4",
+    "electron-installer-dmg": "^3.0.0",
+    "electron-packager": "^15.0.0",
+    "electron-rebuild": "^1.11.0",
+    "electron-winstaller": "^4.0.0",
+    "jest": "^26.1.0",
+    "spectron": "^11.1.0"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cytoscape": "^3.15.2",
+    "electron-log": "^4.2.2",
+    "electron-store": "^5.2.0",
+    "ip": "^1.1.5",
+    "marked": "^1.1.1",
+    "nanoid": "^3.1.12",
+    "qs": "^6.9.4",
+    "serialport": "^9.0.0",
+    "socket.io": "^2.3.0",
+    "systeminformation": "^4.27.0"
+  }
+}

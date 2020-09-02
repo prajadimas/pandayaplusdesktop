@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <!-- meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' blob: data:; script-src 'self'" -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' blob: data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <title>Pandaya+ Application</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./renderer-process/assets/css/photon.min.css">
+    <link rel="stylesheet" href="./renderer-process/assets/css/about.css">
+    <link rel="stylesheet" href="./renderer-process/assets/css/dialog.css">
+    <link rel="stylesheet" href="./renderer-process/assets/css/graph.css">
+  </head>
+  <body>
+    <div id="about-modal" class="about">
+      <div class="about-wrapper">
+        <header class="about-header">
+          <img class="about-logo" src="./renderer-process/assets/img/logogram.png" alt="4DS">
+        </header>
+        <main class="about-sections">
+          <section class="about-section about-code">
+            <h2>Getting Started</h2>
+            <p>This application v<span id="pandaya-apps-version"></span> should be included in the bundle of Pandaya+ v2.0.0 released by 4DS.</p>
+            <p>If you have any question or technical difficulties or found some bugs in using this application, feel free to contact us by email to support@quadran4ds.com.</p>
+          </section>
+          <footer class="about-section footer">
+            <div class="rainbow-button-wrapper">
+              <button id="get-started" class="about-button modal-hide">Get Started</button>
+            </div>
+          </footer>
+        </main>
+      </div>
+    </div>
+    <div id="window-app" class="window">
+      <!-- .toolbar-header sits at the top of your app -->
+      <header class="toolbar toolbar-header">
+        <div class="toolbar-actions">
+          <div class="btn-group">
+            <button id="get-about" class="btn btn-default">
+              <span class="icon icon-home"></span>
+            </button>
+            <button class="btn btn-default active">
+              <span class="icon icon-window"></span>
+            </button>
+          </div>
+        </div>
+      </header>
+      <!-- App's content goes inside .window-content -->
+      <div class="window-content">
+        <div class="pane-group">
+          <!-- Panel group -->
+          <div class="pane pane-sm sidebar">
+            <nav class="nav-group">
+              <h5 class="nav-group-title">Menu</h5>
+              <span id="menu-configuration" class="nav-group-item active">
+                <span class="icon icon-tools"></span>
+                Configuration
+              </span>
+              <span id="menu-data" class="nav-group-item">
+                <span class="icon icon-clipboard"></span>
+                Data
+              </span>
+              <span id="menu-ota" class="nav-group-item">
+                <span class="icon icon-upload"></span>
+                OTA
+              </span>
+            </nav>
+          </div>
+          <!-- Panel group -->
+          <div class="pane">
+            <div id="container-configuration" class="container">
+              <div class="tab-group">
+                <div id="menutab-device" class="tab-item active">
+                  Device Configuration
+                </div>
+                <div id="menutab-cloud" class="tab-item">
+                  Cloud Configuration
+                </div>
+                <div id="menutab-personalization" class="tab-item">
+                  Personalization&nbsp;
+                  <button class="active btn btn-mini btn-default">
+                    <span class="icon icon-tools"></span>
+                  </button>
+                </div>
+              </div>
+              <div id="tab-device" class="col-group">
+                <form class="padded">
+                  <div class="form-group">
+                    <label>Wifi Connection</label>
+                    <ul id="ssid-list" class="list-group">
+                      <li class="list-group-header">
+                        <input id="ssid-search" class="form-control" type="text" placeholder="Filter SSID">
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="form-actions">
+                    <button id="submit-wifi-config" type="submit" class="btn btn-form btn-large btn-primary">Save</button>
+                  </div>
+                </form>
+              </div>
+              <div id="tab-cloud" class="col-group">
+                <form class="padded">
+                  <!-- div class="form-group">
+                    <label>Enable Cloud</label>
+                    <select id="cloud-enable" class="form-control">
+                      <option value="0">No</option>
+                      <option value="1">Yes</option>
+                    </select>
+                  </div -->
+                  <div class="form-group">
+                    <label>Cloud Integration</label>
+                    <ul id="cloud-list" class="list-group">
+                      <li class="list-group-header">
+                        <input id="cloud-search" class="form-control" type="text" placeholder="Filter Path">
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="form-actions">
+                    <button id="submit-cloud-config" type="submit" class="btn btn-form btn-large btn-primary">Save</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div id="container-data" class="container">
+              <div id="tab-data" class="col-group">
+                <table id="table-data" class="table-striped">
+                  <thead>
+                    <tr>
+                      <th>Timestamp</th>
+                      <th>Data</th>
+                      <!-- th>Time Different (s)</th>
+                      <th>Distance from First Sensor (cm)</th -->
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+            <div id="container-ota" class="container">
+              <div class="col-group">
+                <form class="padded">
+                  <div class="form-group">
+                    <!-- label>Device Structure</label -->
+                    <ul id="device-ota-list" class="list-group">
+                      <li class="list-group-header">
+                        <input id="device-ota-search" class="form-control" type="text" placeholder="Filter Device">
+                      </li>
+                    </ul>
+                    <div id="cyWrapper" style="width: 100%; height: 360px; position: relative; border: 2px solid #212523">
+                      <div id="cy"></div>
+                    </div>
+                  </div>
+                  <div class="form-actions">
+                    <button id="upload-program" type="submit" class="btn btn-form btn-large btn-primary">Upload</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <dialog id="modal-wifi">
+        <div class="col-group">
+          <form class="padded">
+            <div class="form-group">
+              <label>SSID Name</label>
+              <input id="ssid-name" type="text" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+              <label>SSID Password</label>
+              <input id="ssid-pass" type="password" class="form-control" placeholder="SSID Password">
+            </div>
+            <div class="form-actions">
+              <button id="ssid-cancel" class="btn btn-form btn-default modal-exit">Cancel</button>
+              <button id="ssid-submit" class="btn btn-form btn-primary pull-right">Save</button>
+            </div>
+          </form>
+        </div>
+      </dialog>
+      <dialog id="modal-device">
+        <div class="col-group">
+          <form class="padded">
+            <div class="form-group">
+              <label>Device</label>
+              <select id="device-list" class="form-control"></select>
+            </div>
+            <div class="form-actions">
+              <button id="device-cancel" class="btn btn-form btn-default modal-exit">Cancel</button>
+              <button id="device-submit" class="btn btn-form btn-primary pull-right">Save</button>
+            </div>
+          </form>
+        </div>
+      </dialog>
+      <dialog id="modal-notification" class="alert">
+        <div id="notification-content" class="col-group padded"></div>
+        <footer>
+          <div class="toolbar-actions">
+            <button class="btn btn-default modal-exit pull-right">OK</button>
+          </div>
+        </footer>
+      </dialog>
+      <!-- .toolbar-footer sits at the bottom of your app -->
+      <footer class="toolbar toolbar-footer">
+        <div id="footer-toolbar" class="toolbar-actions">
+          <!-- button id="sensor-open" class="btn btn-default active">
+            <span class="icon icon-list-add"></span>
+          </button-->
+        </div >
+      </footer>
+    </div>
+    <!-- You can also require other files to run in this process -->
+    <script type="text/javascript" src="./renderer-process/assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="./renderer-process/assets/js/cytoscape.min.js"></script>
+    <script src="./renderer-process/assets/js/plotly.min.js"></script>
+    <script src="./renderer-process/renderer.js"></script>
+  </body>
+</html>
