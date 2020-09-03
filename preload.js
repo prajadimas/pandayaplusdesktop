@@ -30,3 +30,4 @@ contextBridge.exposeInMainWorld('api', {
 })
 
 contextBridge.exposeInMainWorld('wifi', require('systeminformation'))
+contextBridge.exposeInMainWorld('ip', require('ip'))
