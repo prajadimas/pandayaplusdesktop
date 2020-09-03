@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <!-- meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' blob: data:; script-src 'self'" -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' blob: data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' blob: data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src https://repo.quadran4ds.com">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'; connect-src https://repo.quadran4ds.com">
     <title>Pandaya+ Application</title>
     <!-- Stylesheets -->
     <link rel="stylesheet" href="./renderer-process/assets/css/photon.min.css">
@@ -178,6 +178,42 @@
             </div>
           </form>
         </div>
+      </dialog>
+      <dialog id="modal-config-module">
+        <div class="col-group">
+          <form id="config-module" class="padded">
+            <div class="form-actions">
+              <button id="config-module-cancel" class="btn btn-form btn-default modal-exit">Cancel</button>
+              <button id="config-module-submit" class="btn btn-form btn-primary pull-right">Save</button>
+            </div>
+          </form>
+        </div>
+      </dialog>
+      <dialog id="modal-ota">
+        <div class="col-group">
+          <form id="module-data" class="padded">
+            <div class="form-group">
+              <label>Module Used</label>
+              <ul id="module-list" class="list-group">
+                <li class="list-group-header">
+                  <input id="module-search" class="form-control" type="text" placeholder="Filter Module">
+                </li>
+              </ul>
+            </div>
+            <div class="form-actions">
+              <button id="module-cancel" class="btn btn-form btn-default modal-exit">Cancel</button>
+              <button id="module-submit" class="btn btn-form btn-primary pull-right">Save</button>
+            </div>
+          </form>
+        </div>
+      </dialog>
+      <dialog id="modal-notification" class="alert">
+        <div id="notification-content" class="col-group padded"></div>
+        <footer>
+          <div class="toolbar-actions">
+            <button class="btn btn-default modal-exit pull-right">OK</button>
+          </div>
+        </footer>
       </dialog>
       <dialog id="modal-device">
         <div class="col-group">
